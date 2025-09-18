@@ -18,4 +18,4 @@ tmp2$condition[grep('yki', tmp2$orig.ident)]<- "yki"
 
 seuratObj@meta.data <- tmp2[, setdiff(names(tmp2),"orig.ident")]
 
-saveRDS(seuratObj, "tmp_result/seurat_annotated.rds")
+saveRDS(seuratObj, "Result/seurat_annotated.rds")
