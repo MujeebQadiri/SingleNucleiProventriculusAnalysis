@@ -140,5 +140,5 @@ p2 <- UMAPPlot(allSample_normalized,label=T)
 p1 <- TSNEPlot(allSample_normalized,label=T)
 
 saveRDS(allSample_normalized,
-        file = 'tmp_result/Seurat_all_default.rds')
+        file = 'Result/Seurat_all_default.rds')
 
