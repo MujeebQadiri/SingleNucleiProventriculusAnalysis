@@ -2,7 +2,7 @@ library(Seurat)
 library(dplyr)
 
 # Read in data
-Seurat_all_default <- readRDS('tmp_result/Seurat_all_default.rds')
+Seurat_all_default <- readRDS('Result/Seurat_all_default.rds')
 
 # Find cells that has high nCount & nFeature 
 meta.data <- Seurat_all_default@meta.data
@@ -33,13 +33,13 @@ min.pc # 18
 allSample_normalized <- RunUMAP(allSample_normalized, dims = 1:min.pc,
                                 umap.method = "umap-learn")
 allSample_normalized <- FindNeighbors(allSample_normalized, dims = 1:min.pc)  
-saveRDS(allSample_normalized,'tmp_result/highReadRemoved.rds')
+saveRDS(allSample_normalized,'Result/highReadRemoved.rds')
 
 for (rs in seq(.1,.3,.1)){
   allSample_normalized <- FindClusters(allSample_normalized, 
                                        resolution = rs,
                                        algorithm = 4)
-  saveRDS(allSample_normalized,'tmp_result/highReadRemoved.rds')
+  saveRDS(allSample_normalized,'Result/highReadRemoved.rds')
   gc()
 }
 
@@ -49,7 +49,7 @@ a <- grep('^yki',row.names(tmp))
 tmp$barcode <- ""
 tmp[a,]$barcode <- gsub('-1','-2',gsub('yki_','',row.names(tmp)[a]))
 tmp[-a,]$barcode <-gsub('wt_','',row.names(tmp)[-a])
-write.csv(tmp, 'loupe_files/highReadRemoved_noBC.cluster.csv',quote = F,row.names = F)
+write.csv(tmp, 'Result/highReadRemoved_noBC.cluster.csv',quote = F,row.names = F)
 
 # umap coordinates
 p <- UMAPPlot(allSample_normalized,label=T,split.by='orig.ident')
@@ -58,4 +58,4 @@ a <- grep('^yki',row.names(tmp))
 tmp$barcode <- ""
 tmp[a,]$barcode <- gsub('-1','-2',gsub('yki_','',row.names(tmp)[a]))
 tmp[-a,]$barcode <-gsub('wt_','',row.names(tmp)[-a])
-write.csv(tmp, 'loupe_files/highReadRemoved_noBC.umap.csv',quote = F,row.names = F)
+write.csv(tmp, 'Result/highReadRemoved_noBC.umap.csv',quote = F,row.names = F)
